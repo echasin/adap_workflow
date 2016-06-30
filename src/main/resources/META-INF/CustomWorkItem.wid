@@ -1,0 +1,27 @@
+import org.drools.process.core.datatype.impl.type.ObjectDataType;
+import org.drools.process.core.datatype.impl.type.StringDataType;
+
+[
+  [
+    "name" : "RetrieveLocationByAssetId",
+     "parameters" : [
+         "param1" : new StringDataType(),
+         "param2" : new StringDataType(),
+         "param3" : new StringDataType(),
+      ],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "RetrieveLocationByAssetId"
+  ]
+  [
+    "name" : "SaveScore",
+     "parameters" : [
+         "param1" : new StringDataType(),
+         "param2" : new StringDataType(),
+         "param3" : new StringDataType(),
+      ],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "SaveScore"
+  ]
+]

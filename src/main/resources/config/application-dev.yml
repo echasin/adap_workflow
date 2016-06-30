@@ -64,6 +64,12 @@ liquibase:
 
 server:
     port: 8083
+    
+hostname:
+    localhost:8082
+    
+gatewayhostname:
+    localhost:8099
 
 # ===================================================================
 # JHipster specific properties
