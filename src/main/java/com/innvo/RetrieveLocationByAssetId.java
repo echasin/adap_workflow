@@ -19,6 +19,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class RetrieveLocationByAssetId implements WorkItemHandler {
+	RESTClient restClient = null;
 	private final Logger log = LoggerFactory.getLogger(RetrieveLocationByAssetId.class);
 
 	public void abortWorkItem(WorkItem workItem, WorkItemManager manager) {
@@ -34,7 +35,7 @@ public class RetrieveLocationByAssetId implements WorkItemHandler {
 		List<String> statecode = null;
 		RetrieveLocationByAssetId http = new RetrieveLocationByAssetId();
 		try {
-			statecode = http.sendGet(assetId, hostName);
+			statecode = http.sendGet(assetId, gatewayHostName);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -50,14 +51,18 @@ public class RetrieveLocationByAssetId implements WorkItemHandler {
 		manager.completeWorkItem(workItem.getId(), params);
 	}
 
-	private List<String> sendGet(long assetId, String hostName) throws Exception {
+	private List<String> sendGet(long assetId, String gatewayHostName) throws Exception {
+		
+		restClient = new RESTClient();
+		String token = restClient.getToken(gatewayHostName);
 
-		String url = "http://" + hostName + "/api/assetlocations/" + assetId;
+		String url = "http://" + gatewayHostName + "/adap_core/api/assetlocations/" + assetId;
 
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 		con.setRequestMethod("GET");
+		con.setRequestProperty ("Authorization", "Bearer " + token);
 
 		int responseCode = con.getResponseCode();
 		log.debug("\nSending 'GET' request to URL : " + url);
