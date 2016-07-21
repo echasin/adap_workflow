@@ -105,7 +105,7 @@ public class RESTClient {
 			}
 
 		} catch (Throwable t) {
-			throw new RESTClientException(t);
+			//throw new RESTClientException(t);
 		} finally {
 			requestMethod.releaseConnection();
 		}
@@ -125,7 +125,7 @@ public class RESTClient {
 	 * @throws IOException 
 	 * @throws ClientProtocolException 
 	 */
-	public String getToken(String hostName) throws RESTClientException, JSONException, ClientProtocolException, IOException {
+	public String getToken(String gatewayHostName) throws RESTClientException, JSONException, ClientProtocolException, IOException {
 
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("username", "admin");
@@ -133,7 +133,7 @@ public class RESTClient {
 
 		CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 
-		    HttpPost request = new HttpPost("http://127.0.0.1:8099/api/authenticate");
+		    HttpPost request = new HttpPost("http://"+gatewayHostName+"/api/authenticate");
 		    StringEntity params = new StringEntity(jsonObject.toString());
 		    request.addHeader("content-type", "application/json");
 		    request.setEntity(params);

@@ -3,7 +3,7 @@ import org.drools.process.core.datatype.impl.type.StringDataType;
 
 [
   [
-    "name" : "RetrieveLocationByAssetId",
+    "name" : "RetrieveAssetByAssetId",
      "parameters" : [
          "param1" : new StringDataType(),
          "param2" : new StringDataType(),
@@ -11,7 +11,7 @@ import org.drools.process.core.datatype.impl.type.StringDataType;
       ],
      
      "icon" : "icons/world.png",
-    "displayName" : "RetrieveLocationByAssetId"
+    "displayName" : "RetrieveAssetByAssetId"
   ]
   [
     "name" : "SaveScore",

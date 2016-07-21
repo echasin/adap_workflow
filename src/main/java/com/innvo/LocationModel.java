@@ -1,23 +1,22 @@
 package com.innvo;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.ZonedDateTime;
 import java.util.Objects;
-
-public class AssetModel implements Serializable {
+public class LocationModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    private String name;
     private String recordtype;
+    private String addressline1;
+    private String addressline2;
+    private String statecode;
     private String status;
     private String lastmodifiedby;
     private String lastmodifieddatetime;
     private String domain;
-    private Set<LocationModel> locations = new HashSet<>();
-    private Set<ScoreModel> scores = new HashSet<>();
+    private AssetModel asset;
 
     public Long getId() {
         return id;
@@ -27,20 +26,36 @@ public class AssetModel implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getRecordtype() {
         return recordtype;
     }
 
     public void setRecordtype(String recordtype) {
         this.recordtype = recordtype;
+    }
+
+    public String getAddressline1() {
+        return addressline1;
+    }
+
+    public void setAddressline1(String addressline1) {
+        this.addressline1 = addressline1;
+    }
+
+    public String getAddressline2() {
+        return addressline2;
+    }
+
+    public void setAddressline2(String addressline2) {
+        this.addressline2 = addressline2;
+    }
+
+    public String getStatecode() {
+        return statecode;
+    }
+
+    public void setStatecode(String statecode) {
+        this.statecode = statecode;
     }
 
     public String getStatus() {
@@ -75,20 +90,12 @@ public class AssetModel implements Serializable {
         this.domain = domain;
     }
 
-    public Set<LocationModel> getLocations() {
-        return locations;
+    public AssetModel getAsset() {
+        return asset;
     }
 
-    public void setLocations(Set<LocationModel> locations) {
-        this.locations = locations;
-    }
-
-    public Set<ScoreModel> getScores() {
-        return scores;
-    }
-
-    public void setScores(Set<ScoreModel> scores) {
-        this.scores = scores;
+    public void setAsset(AssetModel asset) {
+        this.asset = asset;
     }
 
     @Override
@@ -99,11 +106,11 @@ public class AssetModel implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        AssetModel asset = (AssetModel) o;
-        if(asset.id == null || id == null) {
+        LocationModel location = (LocationModel) o;
+        if(location.id == null || id == null) {
             return false;
         }
-        return Objects.equals(id, asset.id);
+        return Objects.equals(id, location.id);
     }
 
     @Override
@@ -115,8 +122,10 @@ public class AssetModel implements Serializable {
     public String toString() {
         return "{" +
             "id=" + id +
-            ", name='" + name + "'" +
             ", recordtype='" + recordtype + "'" +
+            ", addressline1='" + addressline1 + "'" +
+            ", addressline2='" + addressline2 + "'" +
+            ", statecode='" + statecode + "'" +
             ", status='" + status + "'" +
             ", lastmodifiedby='" + lastmodifiedby + "'" +
             ", lastmodifieddatetime='" + lastmodifieddatetime + "'" +
