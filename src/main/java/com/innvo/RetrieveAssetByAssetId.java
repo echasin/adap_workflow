@@ -51,7 +51,7 @@ public class RetrieveAssetByAssetId implements WorkItemHandler {
 		restClient = new RESTClient();
 		String token = restClient.getToken(gatewayHostName);
 
-		String url = "http://" + gatewayHostName + "/adap_core/api/assetlocations/" + assetId;
+		String url = "http://" + gatewayHostName + "/adap_core/api/assetobject/" + assetId;
 
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();

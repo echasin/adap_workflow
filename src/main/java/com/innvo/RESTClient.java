@@ -105,7 +105,7 @@ public class RESTClient {
 			}
 
 		} catch (Throwable t) {
-			//throw new RESTClientException(t);
+			throw new RESTClientException(t);
 		} finally {
 			requestMethod.releaseConnection();
 		}

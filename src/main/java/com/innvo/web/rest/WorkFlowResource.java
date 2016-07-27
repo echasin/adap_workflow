@@ -37,9 +37,9 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api")
-public class AssetResource {
+public class WorkFlowResource {
 
-	private final Logger log = LoggerFactory.getLogger(AssetResource.class);
+	private final Logger log = LoggerFactory.getLogger(WorkFlowResource.class);
 	
 	/**
 	 * GET ->get process.
