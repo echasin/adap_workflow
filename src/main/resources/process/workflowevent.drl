@@ -1,0 +1,44 @@
+package com.innvo
+import com.innvo.domain.EventModel;
+import com.innvo.domain.AlertModel;
+import java.util.List;
+import java.util.ArrayList;
+import com.innvo.AssetModel;
+import com.innvo.LocationModel;
+import org.json.JSONObject;
+import com.innvo.ScoreModel;
+global com.innvo.SaveScore scoreVal;
+global List<ScoreModel> scoreList;
+import java.util.Set;
+import com.innvo.domain.Status;
+rule "One"
+ruleflow-group "Group1"
+dialect "java"
+ when 
+	
+  	events :AlertModel($listOfEvent:listOfEvent)
+ 	eval(events.getListOfEvent().size()== 3)
+ 
+    then
+  	System.out.println("Rule satisfied successfully."); 
+  	System.out.println( "Count of Events:" +events.getListOfEvent().size());
+  	events.setCount(events.getListOfEvent().size());
+    System.out.println("Events count based on List size :" +events.getCount());
+    ScoreModel score = new ScoreModel();
+        JSONObject details = new JSONObject();
+		details.put("ScenarioName", "Scenario_One");
+		details.put("ScoreCategoryName", "Category_One");
+		details.put("ScoreTypeName", "Category_One");
+		details.put("Value", events.getCount());
+		details.put("RuleName", drools.getRule().getName());
+	    score.setDetails(details.toString());
+		score.setStatus(Status.Active);
+		score.setValue(10d);
+		score.setRulename("Rule_one");
+		score.setRulefilename("workflowevent");
+		score.setDomain("EVENT");
+        System.out.println("Score :" +score);
+        scoreVal.addScore(score);
+end
+
+
