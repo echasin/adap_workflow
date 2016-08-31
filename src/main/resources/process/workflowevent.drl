@@ -1,44 +1,38 @@
 package com.innvo
 import com.innvo.domain.EventModel;
 import com.innvo.domain.AlertModel;
-import java.util.List;
+import com.innvo.domain.OutputCSVModel;
+global com.innvo.Receiver eventsList;
+
+global List<OutputCSVModel> eventList;
 import java.util.ArrayList;
-import com.innvo.AssetModel;
-import com.innvo.LocationModel;
-import org.json.JSONObject;
-import com.innvo.ScoreModel;
-global com.innvo.SaveScore scoreVal;
-global List<ScoreModel> scoreList;
-import java.util.Set;
-import com.innvo.domain.Status;
-rule "One"
-ruleflow-group "Group1"
-dialect "java"
+import java.util.List;
+
+declare AlertModel
+@role(event)
+@timestamp(startdatetime)
+end
+
+declare EventModel
+@role(event)
+@timestamp(startdatetime)
+end
+
+rule "correlate Events based on Alert"
+
  when 
-	
-  	events :AlertModel($listOfEvent:listOfEvent)
- 	eval(events.getListOfEvent().size()== 3)
- 
+	alertStartTime:AlertModel() from entry-point entryOneAlert
+    events:EventModel(this after[1m,2m] alertStartTime || this before[2m, 0m] alertStartTime) from entry-point entryTwoEvents
     then
-  	System.out.println("Rule satisfied successfully."); 
-  	System.out.println( "Count of Events:" +events.getListOfEvent().size());
-  	events.setCount(events.getListOfEvent().size());
-    System.out.println("Events count based on List size :" +events.getCount());
-    ScoreModel score = new ScoreModel();
-        JSONObject details = new JSONObject();
-		details.put("ScenarioName", "Scenario_One");
-		details.put("ScoreCategoryName", "Category_One");
-		details.put("ScoreTypeName", "Category_One");
-		details.put("Value", events.getCount());
-		details.put("RuleName", drools.getRule().getName());
-	    score.setDetails(details.toString());
-		score.setStatus(Status.Active);
-		score.setValue(10d);
-		score.setRulename("Rule_one");
-		score.setRulefilename("workflowevent");
-		score.setDomain("EVENT");
-        System.out.println("Score :" +score);
-        scoreVal.addScore(score);
+    OutputCSVModel eventToCsv=new OutputCSVModel();
+		eventToCsv.setAlertId(alertStartTime.getId());
+		eventToCsv.setEventId(events.getId());
+		eventToCsv.setStatus(events.getStatus());
+		eventToCsv.setLastModifiedBy(events.getLastmodifiedby());
+		eventToCsv.setLastModifiedDateTime(events.getLastmodifieddatetime());
+		eventToCsv.setDomain(events.getDomain());
+		
+		eventsList.addevent(eventToCsv);
 end
 
 

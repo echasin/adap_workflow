@@ -1,18 +1,11 @@
 package com.innvo.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.elasticsearch.annotations.Document;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Alert.
@@ -30,11 +23,11 @@ public class AlertModel implements Serializable {
     private String subcategory;
     private String subtype;
     private String type;
-    private ZonedDateTime startdatetime;
-    private ZonedDateTime enddatetime;
+    private Date startdatetime;
+    private String enddatetime;
     private String status;
     private String lastmodifiedby;
-    private ZonedDateTime lastmodifieddatetime;
+    private Date lastmodifieddatetime;
     private String domain;
     private Integer count;
 
@@ -114,19 +107,19 @@ public class AlertModel implements Serializable {
         this.type = type;
     }
 
-    public ZonedDateTime getStartdatetime() {
+    public Date getStartdatetime() {
         return startdatetime;
     }
 
-    public void setStartdatetime(ZonedDateTime startdatetime) {
+    public void setStartdatetime(Date startdatetime) {
         this.startdatetime = startdatetime;
     }
 
-    public ZonedDateTime getEnddatetime() {
+    public String getEnddatetime() {
         return enddatetime;
     }
 
-    public void setEnddatetime(ZonedDateTime enddatetime) {
+    public void setEnddatetime(String enddatetime) {
         this.enddatetime = enddatetime;
     }
 
@@ -146,11 +139,11 @@ public class AlertModel implements Serializable {
         this.lastmodifiedby = lastmodifiedby;
     }
 
-    public ZonedDateTime getLastmodifieddatetime() {
+    public Date getLastmodifieddatetime() {
         return lastmodifieddatetime;
     }
 
-    public void setLastmodifieddatetime(ZonedDateTime lastmodifieddatetime) {
+    public void setLastmodifieddatetime(Date lastmodifieddatetime) {
         this.lastmodifieddatetime = lastmodifieddatetime;
     }
 

@@ -2,6 +2,10 @@ package com.innvo.domain;
 
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,14 +26,24 @@ public class EventModel implements Serializable {
     private String subcategory;
     private String subtype;
     private String type;
-    private String startdatetime;
+    private Date startdatetime;
     private String enddatetime;
     private String status;
     private String lastmodifiedby;
-    private String lastmodifieddatetime;
+    private Date lastmodifieddatetime;
     private String domain;
 
     private Set<IdentifierModel> identifiers = new HashSet<>();
+    
+    private List<EventModel> listOfEvent;
+
+    public List<EventModel> getListOfEvent() {
+		return listOfEvent;
+	}
+
+	public void setListOfEvent(List<EventModel> listOfEvent) {
+		this.listOfEvent = listOfEvent;
+	}
     
     public Long getId() {
         return id;
@@ -87,11 +101,12 @@ public class EventModel implements Serializable {
         this.type = type;
     }
 
-    public String getStartdatetime() {
+    public Date getStartdatetime() {
         return startdatetime;
     }
 
-    public void setStartdatetime(String startdatetime) {
+    public void setStartdatetime(Date startdatetime) {
+
         this.startdatetime = startdatetime;
     }
 
@@ -119,11 +134,11 @@ public class EventModel implements Serializable {
         this.lastmodifiedby = lastmodifiedby;
     }
 
-    public String getLastmodifieddatetime() {
+    public Date getLastmodifieddatetime() {
         return lastmodifieddatetime;
     }
 
-    public void setLastmodifieddatetime(String lastmodifieddatetime) {
+    public void setLastmodifieddatetime(Date lastmodifieddatetime) {
         this.lastmodifieddatetime = lastmodifieddatetime;
     }
 

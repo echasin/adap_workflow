@@ -3,6 +3,17 @@ import org.drools.process.core.datatype.impl.type.StringDataType;
 
 [
   [
+    "name" : "RetrieveAssetByAssetId",
+     "parameters" : [
+         "param1" : new StringDataType(),
+         "param2" : new StringDataType(),
+         "param3" : new StringDataType(),
+      ],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "RetrieveAssetByAssetId"
+  ]
+  [
     "name" : "SaveScore",
      "parameters" : [
          "param1" : new StringDataType(),
@@ -12,16 +23,5 @@ import org.drools.process.core.datatype.impl.type.StringDataType;
      
      "icon" : "icons/world.png",
     "displayName" : "SaveScore"
-  ]
-    [
-    "name" : "GetEventsHandler",
-     "parameters" : [
-         "param1" : new StringDataType(),
-         "param2" : new StringDataType(),
-         "param3" : new StringDataType(),
-      ],
-     
-     "icon" : "icons/world.png",
-    "displayName" : "GetEvents"
   ]
 ]
