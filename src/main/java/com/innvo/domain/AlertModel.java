@@ -31,8 +31,6 @@ public class AlertModel implements Serializable {
     private String domain;
     private Integer count;
 
-    private Set<IdentifierModel> identifiers = new HashSet<>();
-    
     private List<EventModel> listOfEvent;
 
     public List<EventModel> getListOfEvent() {
@@ -153,14 +151,6 @@ public class AlertModel implements Serializable {
 
     public void setDomain(String domain) {
         this.domain = domain;
-    }
-
-    public Set<IdentifierModel> getIdentifiers() {
-        return identifiers;
-    }
-
-    public void setIdentifiers(Set<IdentifierModel> identifiers) {
-        this.identifiers = identifiers;
     }
 
     @Override
