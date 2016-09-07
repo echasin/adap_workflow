@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,6 @@ import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
 import com.esotericsoftware.yamlbeans.YamlReader;
-import com.innvo.Receiver;
 
 public class CSVBeanWriter {
 	
@@ -35,7 +35,7 @@ public class CSVBeanWriter {
 	   	 
 	   	    try {
 	   	    	CSVBeanWriter receiver=new CSVBeanWriter();
-	   			String fullfilename =receiver.getClass().getResource("/config/application-dev.yml").getFile();
+	   			String fullfilename =URLDecoder.decode(receiver.getClass().getResource("/config/application-dev.yml").getFile(), "UTF-8");
 	   			
 	   			YamlReader reader = new YamlReader(new FileReader(fullfilename));
 	   			Object fileContent = reader.read();

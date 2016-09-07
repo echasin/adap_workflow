@@ -2,6 +2,7 @@ package com.innvo;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
@@ -95,7 +96,7 @@ public class Receiver {
 		String startDateTime = jsonObject.getString("startdatetime");
 		
 		Receiver receiver=new Receiver();
-		String fullfilename =receiver.getClass().getResource("/config/application-dev.yml").getFile();
+		String fullfilename =URLDecoder.decode(receiver.getClass().getResource("/config/application-dev.yml").getFile(), "UTF-8");
 		
 		YamlReader reader = new YamlReader(new FileReader(fullfilename));
 		Object fileContent = reader.read();
