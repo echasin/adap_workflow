@@ -53,13 +53,13 @@ public class Receiver {
 	ConfigurableApplicationContext context;
 
 	/**
-	 * When you receive a message, check and convert to csv, then shut down the application.
-	 * Finally, clean up any ActiveMQ server stuff.
+	 * When you receive a Alert message, check it and get corresponding correlated events and convert to csv.
+	 * Finally, clean all events and listen to next alert message.
 	 * @throws ParseException 
 	 * @throws RESTClientException 
 	 */
 	@JmsListener(destination = "AlertMessageQueue")
-
+	//below method will trigger whenever a alert message is received in queue. 
 	public void receiveMessage(String message) throws JMSException, JSONException, IOException, ParseException, RESTClientException {
 		log.debug("Received <" + message + ">");
 
@@ -82,6 +82,10 @@ public class Receiver {
 		if (kbuilder.hasErrors()) {
 			System.err.println(kbuilder.getErrors().toString());
 		}
+		
+		//Events in each stream must be time-ordered
+		//When using the STREAM, the engine knows the concept of flow of time and the concept of "now", 
+		//i.e., the engine understands how old events are based on the  timestamp.
 		KnowledgeBaseConfiguration config = KnowledgeBaseFactory.newKnowledgeBaseConfiguration();
 		config.setOption(EventProcessingOption.STREAM);
 
@@ -89,7 +93,10 @@ public class Receiver {
 		kbase.addKnowledgePackages(kbuilder.getKnowledgePackages());
 
 		StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
-
+		
+		//Entry points are declared implicitly in Drools by directly making use of them in rules. 
+		//I.e. referencing an entry point in a rule will make the engine, at compile time, 
+		//to identify and create the proper internal structures to support that entry point.
 		WorkingMemoryEntryPoint AlertEntryPoint = ksession.getWorkingMemoryEntryPoint("entryOneAlert");
 		WorkingMemoryEntryPoint EventsEntryPoint = ksession.getWorkingMemoryEntryPoint("entryTwoEvents");
 		
@@ -105,8 +112,10 @@ public class Receiver {
 		String gatewayHostName = map.get("gatewayhostname").toString();
 		GetEventsHandler http = new GetEventsHandler();
 		
+		//getting list of events by REST api call
 		List<EventModel> listOfEvent= http.getEvents(startDateTime, gatewayHostName);
 		
+		//inserting events into EventsEntryPoint
 		    for(EventModel event:listOfEvent){
 		    EventsEntryPoint.insert(event);
 		}
@@ -127,6 +136,7 @@ public class Receiver {
 		alert.setDomain(jsonObject.getString("domain"));
 		alert.setStartdatetime(dateFormater(jsonObject.getString("startdatetime")));
 		
+		//inserting alert into AlertEntryPoint
 		AlertEntryPoint.insert(alert);
 		
 		ksession.fireAllRules();
@@ -136,6 +146,7 @@ public class Receiver {
 		String csvFileName = "correlated_Events_"+ alert.getId()+"_"+currentTimeStamp+".csv";
 		
 		CSVBeanWriter writer=new CSVBeanWriter();
+		//calling csv bean writter to store list of correlated events in csv file
 		writer.writeCSVFile(csvFileName, eventList);
 		eventList.clear();
 	}
