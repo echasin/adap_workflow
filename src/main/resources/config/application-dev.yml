@@ -72,7 +72,7 @@ gatewayhostname:
     localhost:8099
     
 csvpath:
-    C:\Temp
+    C:\temp
 
 # ===================================================================
 # JHipster specific properties
