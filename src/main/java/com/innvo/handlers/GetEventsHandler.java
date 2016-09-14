@@ -55,10 +55,8 @@ public class GetEventsHandler{
 		log.debug("API Response :" + response.toString());
 			JSONArray jsonArray = new JSONArray(response.toString());
 			List<EventModel> listOfEvent =new ArrayList<EventModel>();
-			int count = jsonArray.length();
-			for(int i=0 ; i< count; i++){
-				jsonArray.getString(i); 
-				EventModel event = new ObjectMapper().readValue(jsonArray.getString(i), EventModel.class);
+			for(int i=0 ; i< jsonArray.length(); i++){
+				EventModel event = new ObjectMapper().readValue(jsonArray.getJSONObject(i).toString(), EventModel.class);
 				listOfEvent.add(event);
 				log.debug("Event(" + i + ")id:=  " + event.getId());
 			}

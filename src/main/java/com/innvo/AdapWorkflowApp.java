@@ -13,23 +13,25 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
+import org.springframework.jms.annotation.EnableJms;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+@EnableJms
 @ComponentScan
 @EnableAutoConfiguration(exclude = { MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class })
 @EnableConfigurationProperties({ JHipsterProperties.class, LiquibaseProperties.class })
 @EnableEurekaClient
 public class AdapWorkflowApp {
-
-    private static final Logger log = LoggerFactory.getLogger(AdapWorkflowApp.class);
+	private static final Logger log = LoggerFactory.getLogger(AdapWorkflowApp.class);
 
     @Inject
     private Environment env;
@@ -40,6 +42,7 @@ public class AdapWorkflowApp {
      * Spring profiles can be configured with a program arguments --spring.profiles.active=your-active-profile
      * <p>
      * You can find more information on how profiles work with JHipster on <a href="http://jhipster.github.io/profiles/">http://jhipster.github.io/profiles/</a>.
+     * @throws ParseException 
      */
     @PostConstruct
     public void initApplication() {
@@ -64,8 +67,10 @@ public class AdapWorkflowApp {
      *
      * @param args the command line arguments
      * @throws UnknownHostException if the local host name could not be resolved into an address
+     * @throws ParseException 
      */
-    public static void main(String[] args) throws UnknownHostException {
+    public static void main(String[] args) throws UnknownHostException, ParseException {
+    	System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication app = new SpringApplication(AdapWorkflowApp.class);
         addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();

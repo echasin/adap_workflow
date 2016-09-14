@@ -61,9 +61,11 @@ public class Receiver {
 	@JmsListener(destination = "AlertMessageQueue")
 	//below method will trigger whenever a alert message is received in queue. 
 	public void receiveMessage(String message) throws JMSException, JSONException, IOException, ParseException, RESTClientException {
-		log.debug("Received <" + message + ">");
+		log.debug("Receiver------Received <" + message + ">");
+		
+		String messageValues =message.replace("=", ":");
 
-		JSONObject jsonObject = new JSONObject(message);
+		JSONObject jsonObject = new JSONObject(messageValues);
 		String  alertCategory = jsonObject.getString("category");
 		String  alertSubCategory = jsonObject.getString("subcategory");
 		String  alertSubtype = jsonObject.getString("subtype");
