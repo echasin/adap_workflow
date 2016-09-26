@@ -26,11 +26,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.net.URLDecoder;
 
 /**
  * REST controller for managing Score.
@@ -50,24 +52,28 @@ public class WorkFlowResource {
 	@Timed
 	public List<String> getWorkFlows(HttpServletRequest request, Principal principal)
 			throws JSONException, IOException {
-	List<String> workFlowsName = new ArrayList<String>();
-	 String path = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/process");
-     File directory = new File(path);       
-     File[] fList = directory.listFiles();
-     for (File file : fList){
-     	
-         if (file.isFile()){
-         	
-          if(!file.getName().contains(".drl")){
-         	String fileNameWithOutExt = FilenameUtils.removeExtension(file.getName());
-             log.info("WorkFlow/Process ID : "+fileNameWithOutExt);
-             workFlowsName.add(fileNameWithOutExt);
-         	}
-         }
-        
-     }
-     
-     return workFlowsName;
+		WorkFlowResource workFlowResource = new WorkFlowResource();
+		String getWorkflowFileName = URLDecoder.decode(workFlowResource.getClass().getResource("/process/").getFile(),
+				"UTF-8");
+		List<String> workFlowsName = new ArrayList<String>();
+
+		File directory = new File(getWorkflowFileName);
+		File[] fList = directory.listFiles();
+		for (File file : fList) {
+
+			if (file.isFile()) {
+
+				if (!file.getName().contains(".drl")) {
+					String fileNameWithOutExt = FilenameUtils.removeExtension(file.getName());
+					log.info("WorkFlow/Process ID : " + fileNameWithOutExt);
+					workFlowsName.add(fileNameWithOutExt);
+				}
+			}
+
+		}
+
+		return workFlowsName;
+
 	}
 
 
@@ -80,24 +86,27 @@ public class WorkFlowResource {
 	@Timed
 	public List<String> getRuleFiles(HttpServletRequest request, Principal principal)
 			throws JSONException, IOException {
-	List<String> workFlowsName = new ArrayList<String>();
-	 String path = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/process");
-     File directory = new File(path);       
-     File[] fList = directory.listFiles();
-     for (File file : fList){
-     	
-         if (file.isFile()){
-         	
-          if(!file.getName().contains(".drl")){
-         	String fileNameWithOutExt = FilenameUtils.removeExtension(file.getName());
-             log.info("WorkFlow/Process ID : "+fileNameWithOutExt);
-             workFlowsName.add(fileNameWithOutExt);
-         	}
-         }
-        
-     }
-     
-     return workFlowsName;
+
+		WorkFlowResource workFlowResource = new WorkFlowResource();
+		String getRuleFilename = URLDecoder.decode(workFlowResource.getClass().getResource("/process/").getFile(),
+				"UTF-8");
+		List<String> workFlowsName = new ArrayList<String>();
+		File directory = new File(getRuleFilename);
+		File[] fList = directory.listFiles();
+		for (File file : fList) {
+
+			if (file.isFile()) {
+
+				if (!file.getName().contains(".drl")) {
+					String fileNameWithOutExt = FilenameUtils.removeExtension(file.getName());
+					log.info("WorkFlow/Process ID : " + fileNameWithOutExt);
+					workFlowsName.add(fileNameWithOutExt);
+				}
+			}
+
+		}
+
+		return workFlowsName;
 	}
 
 	/**
@@ -107,18 +116,19 @@ public class WorkFlowResource {
 	 * @throws JSONException
 	 * @throws FileNotFoundException 
 	 * @throws YamlException 
+	 * @throws UnsupportedEncodingException 
 	 */
 	@RequestMapping(value = "/workFlow/{assetId}/{fileName}/{ruleFile}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	public String startWorkFlow(@PathVariable("assetId") long assetId, @PathVariable("fileName") String fileName, @PathVariable("ruleFile") String ruleFile,
 			HttpServletRequest request, Principal principal)
-			throws JSONException, FileNotFoundException, YamlException {
+			throws JSONException, FileNotFoundException, YamlException, UnsupportedEncodingException {
 		String result = null;
 		log.info("Pass Asset ID in Process to get started : " + assetId + "\t " + fileName + "\t " + ruleFile);
 		result = "{\"Score Update\":\"SUCCESS\"}";
-		String path = request.getSession().getServletContext()
-				.getRealPath("/WEB-INF/classes/config/application-dev.yml");
-		YamlReader reader = new YamlReader(new FileReader(path));
+		WorkFlowResource workFlowResource = new WorkFlowResource();
+		String ymlFilePath =URLDecoder.decode(workFlowResource.getClass().getResource("/config/application-dev.yml").getFile(), "UTF-8");
+		YamlReader reader = new YamlReader(new FileReader(ymlFilePath));
 		Object fileContent = reader.read();
 		Map map = (Map) fileContent;
 		String gatewayHostName = map.get("gatewayhostname").toString();
