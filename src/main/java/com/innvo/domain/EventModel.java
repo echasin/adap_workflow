@@ -9,6 +9,9 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.innvo.RecordtypeModel;
+
 import java.util.Objects;
 
 /**
@@ -34,6 +37,7 @@ public class EventModel implements Serializable {
     private String domain;
 
     private List<EventModel> listOfEvent;
+    private RecordtypeModel recordtype;
 
     public List<EventModel> getListOfEvent() {
 		return listOfEvent;
@@ -147,6 +151,14 @@ public class EventModel implements Serializable {
     public void setDomain(String domain) {
         this.domain = domain;
     }
+    
+    public RecordtypeModel getRecordtype() {
+		return recordtype;
+	}
+
+	public void setRecordtype(RecordtypeModel recordtype) {
+		this.recordtype = recordtype;
+	}
 
     @Override
     public boolean equals(Object o) {

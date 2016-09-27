@@ -29,7 +29,7 @@ public class RecordtypeModel implements Serializable {
     private String description;
     private String status;
     private String lastmodifiedby;
-    private ZonedDateTime lastmodifieddatetime;
+    private String lastmodifieddatetime;
     private String domain;
     private Set<CategoryModel> categories = new HashSet<>();
     private Set<AssetModel> assets = new HashSet<>();
@@ -82,11 +82,11 @@ public class RecordtypeModel implements Serializable {
         this.lastmodifiedby = lastmodifiedby;
     }
 
-    public ZonedDateTime getLastmodifieddatetime() {
+    public String getLastmodifieddatetime() {
         return lastmodifieddatetime;
     }
 
-    public void setLastmodifieddatetime(ZonedDateTime lastmodifieddatetime) {
+    public void setLastmodifieddatetime(String lastmodifieddatetime) {
         this.lastmodifieddatetime = lastmodifieddatetime;
     }
 

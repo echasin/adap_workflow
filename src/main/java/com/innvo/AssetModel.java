@@ -147,7 +147,15 @@ public class AssetModel implements Serializable {
         this.securitygroup = securitygroup;
     }
 
-    @Override
+    public Set<IdentifierModel> getIdentifiers() {
+		return identifiers;
+	}
+
+	public void setIdentifiers(Set<IdentifierModel> identifiers) {
+		this.identifiers = identifiers;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
