@@ -1,6 +1,5 @@
 package com.innvo;
 
-import java.util.List;
 
 
 public class ResponsedetailModel {
@@ -12,16 +11,7 @@ public class ResponsedetailModel {
 	private Long questiongroupId;
 	private String subquestionId;
 	private String response;
-	
-	private List<ResponsedetailModel> listOfResponse;
-	
-	
-	public List<ResponsedetailModel> getListOfResponse() {
-		return listOfResponse;
-	}
-	public void setListOfResponse(List<ResponsedetailModel> listOfResponse) {
-		this.listOfResponse = listOfResponse;
-	}
+
 	public Long getAssetId() {
 		return assetId;
 	}

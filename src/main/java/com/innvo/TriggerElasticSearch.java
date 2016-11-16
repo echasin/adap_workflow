@@ -22,7 +22,7 @@ public class TriggerElasticSearch {
 		KieContainer kContainer = ks.getKieClasspathContainer();
 		KieSession kSession = kContainer.newKieSession("ksession-process");
 		kSession.getWorkItemManager().registerWorkItemHandler("GetResponseDetailByAssetId", new GetResponseDetailByAssetId());
-		//kSession.getWorkItemManager().registerWorkItemHandler("SaveScore", new SaveScore());
+		kSession.getWorkItemManager().registerWorkItemHandler("SaveScore", new SaveScore());
 		kSession.addEventListener(new DebugProcessEventListener());
 		kSession.addEventListener(new DebugAgendaEventListener());
 		kSession.addEventListener(new DebugRuleRuntimeEventListener());

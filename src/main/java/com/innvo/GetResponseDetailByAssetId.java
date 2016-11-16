@@ -37,22 +37,22 @@ public class GetResponseDetailByAssetId implements WorkItemHandler {
 		String gatewayHostName = (String) workItem.getParameter("gatewayhostname");
 		String assetNameVal = (String) workItem.getParameter("assetName");
 		log.debug("Asset ID in GetResponseDetailByAssetId :" +assetId);
-		List<ResponsedetailModel> responseDetailModel = new ArrayList<ResponsedetailModel>();
+		ResponseDetailModelList responseDetailModelList = new ResponseDetailModelList();
 		GetResponseDetailByAssetId http= new GetResponseDetailByAssetId();
 		try {
-			responseDetailModel=http.sendGetResponseDetail(assetId,assetNameVal,gatewayHostName);
+			responseDetailModelList=http.sendGetResponseDetail(assetId,assetNameVal,gatewayHostName);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("assetId", assetId);
 		params.put("gatewayhostname", gatewayHostName);
-		params.put("responseDetailModel", responseDetailModel);
+		params.put("responseDetailModelList", responseDetailModelList);
 		manager.completeWorkItem(workItem.getId(), params);
 		
 	}
 
-	private List<ResponsedetailModel> sendGetResponseDetail(long assetId,String assetName,String gatewayHostName) throws ClientProtocolException, RESTClientException, JSONException, IOException {
+	private ResponseDetailModelList sendGetResponseDetail(long assetId,String assetName,String gatewayHostName) throws ClientProtocolException, RESTClientException, JSONException, IOException {
 		
 		restClient = new RESTClient();
 		String token = restClient.getToken(gatewayHostName);
@@ -79,6 +79,7 @@ public class GetResponseDetailByAssetId implements WorkItemHandler {
 		log.debug("Response from GetResponseDetailByAssetId :" +responseValues.toString());
 		in.close();
 		JSONArray jsonArray = new JSONArray(responseValues.toString());
+		ResponseDetailModelList detailModelList = new ResponseDetailModelList();
 		List<ResponsedetailModel> listOfResponse =new ArrayList<ResponsedetailModel>();
 		ResponsedetailModel responseDetailModel= new ResponsedetailModel();
 		for (int i=0;i<jsonArray.length();i++)
@@ -95,7 +96,8 @@ public class GetResponseDetailByAssetId implements WorkItemHandler {
 			listOfResponse.add(responseDetailModel);
 		}
 		log.debug("List Of Response : " +listOfResponse);
-		return listOfResponse;
+		detailModelList.setListOfResponse(listOfResponse);
+		return detailModelList;
 	}
 
 }

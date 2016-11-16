@@ -1,6 +1,8 @@
 package com.innvo;
 
+import java.io.FileReader;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +24,9 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
+import com.esotericsoftware.yamlbeans.YamlReader;
+import com.innvo.handlers.GetEventsHandler;
+
 
 @Component
 public class TopicReceiver {
@@ -40,21 +45,27 @@ public class TopicReceiver {
 
 		JSONObject jsonObject = new JSONObject(messageValues);
 		String  assetId = jsonObject.getString("asset_id");
-		System.out.println("AssetID :" +assetId);
+		log.debug("AssetID :" +assetId);
 		KieServices ks = KieServices.Factory.get();
 		KieContainer kContainer = ks.getKieClasspathContainer();
 		KieSession kSession = kContainer.newKieSession("ksession-process");
 		kSession.getWorkItemManager().registerWorkItemHandler("RetrieveAssetNameByAssetId", new RetrieveAssetNameByAssetId());
 		kSession.getWorkItemManager().registerWorkItemHandler("ExecuteElasticSearchQuery", new ExecuteElasticSearchQuery());
-		//kSession.getWorkItemManager().registerWorkItemHandler("TriggerElasticSearch", new TriggerElasticSearch());
-		//kSession.getWorkItemManager().registerWorkItemHandler("SaveScore", new SaveScore());
 		kSession.addEventListener(new DebugProcessEventListener());
 		kSession.addEventListener(new DebugAgendaEventListener());
 		kSession.addEventListener(new DebugRuleRuntimeEventListener());
 		ks.getLoggers().newFileLogger(kSession, "./workflowlog");
+		TopicReceiver topicReceiver=new TopicReceiver();
+		String fullfilename =URLDecoder.decode(topicReceiver.getClass().getResource("/config/application-dev.yml").getFile(), "UTF-8");
+		
+		YamlReader reader = new YamlReader(new FileReader(fullfilename));
+		Object fileContent = reader.read();
+		Map map = (Map) fileContent;
+		
+		String gatewayHostName = map.get("gatewayhostname").toString();
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("assetId", assetId);
-		params.put("gatewayhostname", "localhost:8099");
+		params.put("gatewayhostname", gatewayHostName);
 		kSession.startProcess("elasticsearchdns", params);
 		kSession.fireAllRules();
 		kSession.dispose();
