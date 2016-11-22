@@ -63,9 +63,11 @@ public class TopicReceiver {
 		Map map = (Map) fileContent;
 		
 		String gatewayHostName = map.get("gatewayhostname").toString();
+		String ec2Url=map.get("ec2url").toString();
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("assetId", assetId);
 		params.put("gatewayhostname", gatewayHostName);
+		params.put("ec2url", ec2Url);
 		kSession.startProcess("elasticsearchdns", params);
 		kSession.fireAllRules();
 		kSession.dispose();

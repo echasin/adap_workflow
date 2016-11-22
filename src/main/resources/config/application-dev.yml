@@ -74,6 +74,9 @@ gatewayhostname:
 csvpath:
     C:\temp
 
+ec2url:
+    ec2-52-54-140-219.compute-1.amazonaws.com:9200/capstone/dns/_search?q=source_computer:
+
 # ===================================================================
 # JHipster specific properties
 # ===================================================================
