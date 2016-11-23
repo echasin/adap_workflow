@@ -44,7 +44,8 @@ public class TopicReceiver {
 		String messageValues =message.replace("=", ":");
 
 		JSONObject jsonObject = new JSONObject(messageValues);
-		String  assetId = jsonObject.getString("asset_id");
+		long assetIdVal=jsonObject.getLong("asset_id");
+		String  assetId = Long.toString(assetIdVal);
 		log.debug("AssetID :" +assetId);
 		KieServices ks = KieServices.Factory.get();
 		KieContainer kContainer = ks.getKieClasspathContainer();

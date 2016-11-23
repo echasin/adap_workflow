@@ -89,9 +89,15 @@ public class GetResponseDetailByAssetId implements WorkItemHandler {
 			responseDetailModel.setAssetId(assetId);
 			responseDetailModel.setAssetName(assetName);
 			responseDetailModel.setResponseId(obj1.getLong("responseId"));
-			responseDetailModel.setQuestionnaireId(obj1.getString("questionnaireId"));
+			if(!obj1.isNull("questionnaireId")){
+				responseDetailModel.setQuestionnaireId(obj1.getLong("questionnaireId"));
+			}
+			
 			responseDetailModel.setQuestiongroupId(obj1.getLong("questiongroupId"));
-			responseDetailModel.setSubquestionId(obj1.getString("subquestionId"));
+			if(!obj1.isNull("subquestionId")){
+				responseDetailModel.setSubquestionId(obj1.getLong("subquestionId"));
+			}
+			
 			responseDetailModel.setResponse(obj1.getString("response"));
 			listOfResponse.add(responseDetailModel);
 		}
