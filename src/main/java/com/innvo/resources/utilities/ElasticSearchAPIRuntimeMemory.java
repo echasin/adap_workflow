@@ -21,7 +21,7 @@ public class ElasticSearchAPIRuntimeMemory {
     public static long bytesToMegabytes(long bytes) {
             return bytes / MEGABYTE;
     }
-    public static void main(String args[]) throws IOException, JSONException, ParseException {
+    /*public static void main(String args[]) throws IOException, JSONException, ParseException {
     	
     	getEvents(1000,1);
     	getEvents(2000,2);
@@ -29,7 +29,7 @@ public class ElasticSearchAPIRuntimeMemory {
     	getEvents(4000,4);
     	
 
-    }
+   }*/
 
 	private static void getEvents(int splitTotal,int time ) throws IOException, ParseException {
 		String beforeResponse=new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date(System.currentTimeMillis()));
