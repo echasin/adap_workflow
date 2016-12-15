@@ -1,6 +1,5 @@
 package com.innvo;
 
-import java.util.List;
 
 
 public class ResponsedetailModel {
@@ -8,20 +7,11 @@ public class ResponsedetailModel {
 	private Long assetId;
 	private String assetName;
 	private Long responseId;
-	private String questionnaireId;
+	private Long questionnaireId;
 	private Long questiongroupId;
-	private String subquestionId;
+	private Long subquestionId;
 	private String response;
-	
-	private List<ResponsedetailModel> listOfResponse;
-	
-	
-	public List<ResponsedetailModel> getListOfResponse() {
-		return listOfResponse;
-	}
-	public void setListOfResponse(List<ResponsedetailModel> listOfResponse) {
-		this.listOfResponse = listOfResponse;
-	}
+
 	public Long getAssetId() {
 		return assetId;
 	}
@@ -40,10 +30,10 @@ public class ResponsedetailModel {
 	public void setResponseId(Long responseId) {
 		this.responseId = responseId;
 	}
-	public String getQuestionnaireId() {
+	public long getQuestionnaireId() {
 		return questionnaireId;
 	}
-	public void setQuestionnaireId(String questionnaireId) {
+	public void setQuestionnaireId(long questionnaireId) {
 		this.questionnaireId = questionnaireId;
 	}
 	public Long getQuestiongroupId() {
@@ -52,10 +42,10 @@ public class ResponsedetailModel {
 	public void setQuestiongroupId(Long questiongroupId) {
 		this.questiongroupId = questiongroupId;
 	}
-	public String getSubquestionId() {
+	public long getSubquestionId() {
 		return subquestionId;
 	}
-	public void setSubquestionId(String subquestionId) {
+	public void setSubquestionId(Long subquestionId) {
 		this.subquestionId = subquestionId;
 	}
 	public String getResponse() {

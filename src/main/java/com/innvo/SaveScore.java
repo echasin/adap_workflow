@@ -42,7 +42,7 @@ public class SaveScore implements WorkItemHandler {
 		}
 
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-		String gatewayHostName="localhost:8099";
+		String gatewayHostName = String.valueOf(workItem.getParameter("gatewayhostname"));
 		try {
 			log.info("scoreVal in save score :" +scoreValueList );
 			saveScore(scoreValueList, gatewayHostName);

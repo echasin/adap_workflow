@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 
 public class ExecuteElasticSearchQuery implements WorkItemHandler {
 
-	private static final String GET_URL = "http://ec2-52-54-140-219.compute-1.amazonaws.com:9200/capstone/dns/_search?q=source_computer:";
 	private final Logger log = LoggerFactory.getLogger(ExecuteElasticSearchQuery.class);
 
 	public void abortWorkItem(WorkItem workItem, WorkItemManager manager) {
@@ -30,10 +29,13 @@ public class ExecuteElasticSearchQuery implements WorkItemHandler {
 		String assetIdVal = String.valueOf(workItem.getParameter("assetId"));
 		long assetId = Long.parseLong(assetIdVal);
 		String assetName = String.valueOf(workItem.getParameter("assetName"));
+		String ec2UrlVal = (String) workItem.getParameter("ec2url");
+		String ec2Url=ec2UrlVal.replace("{", "").replace("}", "");
 		log.debug("Asset Name in ExecuteElasticSearchQuery :" + assetName);
+		log.debug("Ec2Url in ExecuteElasticSearchQuery :" + ec2Url);
 		try {
 			CloseableHttpClient httpClient = HttpClients.createDefault();
-			HttpGet httpGet = new HttpGet(GET_URL + assetName);
+			HttpGet httpGet = new HttpGet("http://" +ec2Url + assetName);
 			CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
 
 			System.out.println("GET Response Status:: " + httpResponse.getStatusLine().getStatusCode());

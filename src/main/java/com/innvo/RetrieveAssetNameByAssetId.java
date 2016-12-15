@@ -29,6 +29,7 @@ public class RetrieveAssetNameByAssetId implements WorkItemHandler {
 		String assetIdVal = String.valueOf(workItem.getParameter("assetId"));
 		long assetId = Long.parseLong(assetIdVal);
 		String gatewayHostName = (String) workItem.getParameter("gatewayhostname");
+		String ec2Url = (String) workItem.getParameter("ec2url");
 		String assetName = null;
 		AssetModel assetModel = new AssetModel();
 		RetrieveAssetNameByAssetId http = new RetrieveAssetNameByAssetId();
@@ -44,6 +45,7 @@ public class RetrieveAssetNameByAssetId implements WorkItemHandler {
 		params.put("assetmodel", assetModel);
 		params.put("gatewayhostname", gatewayHostName);
 		params.put("assetName", assetName);
+		params.put("ec2url", ec2Url);
 		manager.completeWorkItem(workItem.getId(), params);
 	}
 
