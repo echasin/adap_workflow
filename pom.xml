@@ -64,6 +64,7 @@
         <sonar.sources>${project.basedir}/src/main/</sonar.sources>
         <sonar.surefire.reportsPath>${project.testresult.directory}/surefire-reports</sonar.surefire.reportsPath>
         <sonar.tests>${project.basedir}/src/test/</sonar.tests>
+        <jbpm.version>6.2.0.Final</jbpm.version>
     </properties>
 
     <dependencyManagement>
@@ -440,7 +441,87 @@
             <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.1</version>
+		</dependency>
+		<dependency>
+		<groupId>org.json</groupId>
+		<artifactId>json</artifactId>
+		<version>20160212</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-flow</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-flow-builder</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-bpmn2</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>knowledge-api</artifactId>
+			<version>6.2.0.Final</version>
+		</dependency>
+        <dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>drools-compiler</artifactId>
+            <version>6.2.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>drools-core</artifactId>
+            <version>6.2.0.Final</version>
+        </dependency>
+            <dependency>
+            <groupId>com.esotericsoftware.yamlbeans</groupId>
+            <artifactId>yamlbeans</artifactId>
+            <version>1.06</version>
+        </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-broker</artifactId>
+        </dependency>
+        <dependency>
+    	    <groupId>com.google.code.gson</groupId>
+    	    <artifactId>gson</artifactId>
+    	    <version>2.6.2</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>net.sf.supercsv</groupId>
+            <artifactId>super-csv</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.supercsv</groupId>
+            <artifactId>super-csv-dozer</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <dependency>
+             <groupId>net.sf.supercsv</groupId>
+             <artifactId>super-csv-joda</artifactId>
+             <version>2.4.0</version>
+        </dependency>
+        <dependency>
+             <groupId>net.sf.supercsv</groupId>
+             <artifactId>super-csv-java8</artifactId>
+             <version>2.4.0</version>
+        </dependency>
+        
     </dependencies>
     <build>
         <defaultGoal>spring-boot:run</defaultGoal>

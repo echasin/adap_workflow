@@ -1,0 +1,32 @@
+package com.innvo
+import com.innvo.ResponsedetailModel;
+import com.innvo.ResponseDetailModelList;
+import org.json.JSONObject;
+import java.util.List;
+import java.util.ArrayList;
+import com.innvo.ScoreModel;
+global com.innvo.SaveScore scoreVal;
+global List<ScoreModel> scoreList;
+rule "Three"
+ruleflow-group "Group3"
+
+    when
+        responseDetailModel : ResponseDetailModelList($listOfResponse : listOfResponse)
+        value : ResponsedetailModel() from $listOfResponse  
+        eval(value.getAssetName().contains("C4653"))
+    then
+        ScoreModel score = new ScoreModel();
+        JSONObject details = new JSONObject();
+		details.put("ScenarioName", "Scenario_One");
+		details.put("ScoreCategoryName", "Category_One");
+		details.put("ScoreTypeName", "Category_One");
+		details.put("Value", 101);
+		details.put("RuleName", drools.getRule().getName());
+	    score.setDetails(details.toString());
+		score.setStatus(Status.Active);
+		score.setValue(10d);
+		score.setRulename("Rule_three");
+		score.setDomain("DEMO");
+        System.out.println("Score :" +score);
+        scoreVal.addScore(score);  
+end

@@ -1,0 +1,38 @@
+package com.innvo
+import com.innvo.domain.EventModel;
+import com.innvo.domain.AlertModel;
+import com.innvo.domain.OutputCSVModel;
+global com.innvo.Receiver eventsList;
+
+global List<OutputCSVModel> eventList;
+import java.util.ArrayList;
+import java.util.List;
+
+declare AlertModel
+@role(event)
+@timestamp(startdatetime)
+end
+
+declare EventModel
+@role(event)
+@timestamp(startdatetime)
+end
+
+rule "correlate Events based on Alert"
+
+ when 
+	alertStartTime:AlertModel() from entry-point entryOneAlert
+    events:EventModel(this after[1m,2m] alertStartTime || this before[2m, 0m] alertStartTime) from entry-point entryTwoEvents
+    then
+    OutputCSVModel eventToCsv=new OutputCSVModel();
+		eventToCsv.setAlertId(alertStartTime.getId());
+		eventToCsv.setEventId(events.getId());
+		eventToCsv.setStatus(events.getStatus());
+		eventToCsv.setLastModifiedBy(events.getLastmodifiedby());
+		eventToCsv.setLastModifiedDateTime(events.getLastmodifieddatetime());
+		eventToCsv.setDomain(events.getDomain());
+		
+		eventsList.addevent(eventToCsv);
+end
+
+
