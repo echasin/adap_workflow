@@ -24,4 +24,37 @@ import org.drools.process.core.datatype.impl.type.StringDataType;
      "icon" : "icons/world.png",
     "displayName" : "SaveScore"
   ]
+  [
+    "name" : "RetrieveAssetNameByAssetId",
+     "parameters" : [
+         "param1" : new StringDataType(),
+         "param2" : new StringDataType(),
+         "param3" : new StringDataType(),
+      ],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "RetrieveAssetNameByAssetId"
+  ]
+  [
+    "name" : "ExecuteElasticSearchQuery",
+     "parameters" : [
+         "param1" : new StringDataType(),
+         "param2" : new StringDataType(),
+         "param3" : new StringDataType(),
+      ],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "ExecuteElasticSearchQuery"
+  ]
+  [
+    "name" : "GetResponseDetailByAssetId",
+     "parameters" : [
+         "param1" : new StringDataType(),
+         "param2" : new StringDataType(),
+         "param3" : new StringDataType(),
+      ],
+     
+     "icon" : "icons/world.png",
+    "displayName" : "GetResponseDetailByAssetId"
+  ]
 ]
