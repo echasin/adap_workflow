@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity Playbookplaybookcomponentmbr.
+    -->
+    <changeSet id="20161218025951-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="playbook_id"
+                                 baseTableName="playbookplaybookcomponentmbr"
+                                 constraintName="fk_playbookplaybookcomponentmbr_playbook_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="playbook"/>
+
+        <addForeignKeyConstraint baseColumnNames="playbookcomponent_id"
+                                 baseTableName="playbookplaybookcomponentmbr"
+                                 constraintName="fk_playbookplaybookcomponentmbr_playbookcomponent_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="playbookcomponent"/>
+
+    </changeSet>
+</databaseChangeLog>

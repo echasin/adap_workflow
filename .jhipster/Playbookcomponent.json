@@ -1,0 +1,29 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "playbookplaybookcomponentmbr",
+            "otherEntityName": "playbookplaybookcomponentmbr",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "playbookcomponent"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "100"
+        }
+    ],
+    "changelogDate": "20161218024954",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "playbookcomponent",
+    "pagination": "pagination",
+    "microserviceName": "adap_workflow",
+    "searchEngine": "elasticsearch"
+}
