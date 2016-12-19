@@ -21,6 +21,8 @@ public class AssetModel implements Serializable {
 
     private Long id;
     private String name;
+    private String nameshort;
+    private String description;
     private String status;
     private String lastmodifiedby;
     private String lastmodifieddatetime;
@@ -50,7 +52,23 @@ public class AssetModel implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+    
+    public String getNameshort() {
+ 		return nameshort;
+ 	}
 
+ 	public void setNameshort(String nameshort) {
+ 		this.nameshort = nameshort;
+ 	}
+
+ 	public String getDescription() {
+ 		return description;
+ 	}
+
+ 	public void setDescription(String description) {
+ 		this.description = description;
+ 	}
+    
     public String getStatus() {
         return status;
     }
