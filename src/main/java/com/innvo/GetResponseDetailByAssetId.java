@@ -84,8 +84,10 @@ public class GetResponseDetailByAssetId implements WorkItemHandler {
 		ResponsedetailModel responseDetailModel= new ResponsedetailModel();
 		for (int i=0;i<jsonArray.length();i++)
 		{
-			
-			JSONObject obj1 = jsonArray.getJSONObject(i);
+			JSONArray iterateJsonArray =jsonArray.getJSONArray(i);
+			for (int j=0;j<iterateJsonArray.length();j++)
+			{
+			JSONObject obj1 = iterateJsonArray.getJSONObject(j);
 			responseDetailModel.setAssetId(assetId);
 			responseDetailModel.setAssetName(assetName);
 			responseDetailModel.setResponseId(obj1.getLong("responseId"));
@@ -100,6 +102,7 @@ public class GetResponseDetailByAssetId implements WorkItemHandler {
 			
 			responseDetailModel.setResponse(obj1.getString("response"));
 			listOfResponse.add(responseDetailModel);
+		}
 		}
 		log.debug("List Of Response : " +listOfResponse);
 		detailModelList.setListOfResponse(listOfResponse);
