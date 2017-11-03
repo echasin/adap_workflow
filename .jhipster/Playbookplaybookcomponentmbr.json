@@ -1,0 +1,40 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "playbook",
+            "otherEntityName": "playbook",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "playbookcomponent",
+            "otherEntityName": "playbookcomponent",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "comment",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "100"
+        }
+    ],
+    "changelogDate": "20161218025951",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "playbookplaybookcomponentmbr",
+    "pagination": "pagination",
+    "microserviceName": "adap_workflow",
+    "searchEngine": "elasticsearch"
+}
